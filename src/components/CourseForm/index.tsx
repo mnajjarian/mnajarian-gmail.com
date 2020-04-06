@@ -4,16 +4,11 @@ import { DataContext } from '../../context'
 import Button from '../Button'
 import { useHistory } from 'react-router-dom'
 import { generateId } from '../../Helper'
+import { CourseType } from '../../reducer'
 
-type CourseState = {
-  name: string
-  startdate: string
-  enddate: string
-}
 function CourseForm(): JSX.Element {
   const [errMsg, setErrMsg] = useState<null | string>(null)
   const {
-    data,
     data: { courses },
     dataService,
   } = useContext(DataContext)
@@ -24,7 +19,8 @@ function CourseForm(): JSX.Element {
   const matchId = pathname.match(/\d+/g)
   const course = courses.filter((course) => course.id === Number(matchId))[0]
 
-  const [state, setState] = useState<CourseState>({
+  const [state, setState] = useState<CourseType>({
+    id: 0,
     name: course ? course.name : '',
     startdate: course ? course.startdate : '',
     enddate: course ? course.enddate : '',

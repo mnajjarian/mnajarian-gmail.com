@@ -20,15 +20,15 @@ export type StudentType = {
   courses: number[]
 }
 export enum ActionType {
-  FETCH_STUDENTS,
-  FETCH_COURSES,
-  ADD_STUDENT,
-  EDIT_STUDENT,
-  REMOVE_STUDENT,
-  REMOVE_STUSENT_COURSE,
-  ADD_COURSE,
-  EDIT_COURSE,
-  REMOVE_COURSE,
+  'FETCH_STUDENTS',
+  'FETCH_COURSES',
+  'ADD_STUDENT',
+  'EDIT_STUDENT',
+  'REMOVE_STUDENT',
+  'REMOVE_STUSENT_COURSE',
+  'ADD_COURSE',
+  'EDIT_COURSE',
+  'REMOVE_COURSE',
 }
 export type Action =
   | { type: ActionType.FETCH_STUDENTS; payload: StudentType[] }

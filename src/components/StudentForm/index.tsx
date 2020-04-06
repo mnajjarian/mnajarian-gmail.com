@@ -1,11 +1,11 @@
 import React, { useState, useContext, ChangeEvent, FormEvent } from 'react'
 import { Styled } from './style'
 import Button from '../Button'
-import { StudentState } from '../../service'
 import { useHistory } from 'react-router-dom'
 import { emailValidation } from '../../Helper'
 import { DataContext } from '../../context'
 import { generateId } from '../../Helper'
+import { StudentType } from '../../reducer'
 
 function StudentForm(): JSX.Element {
   const [errMsg, setErrMsg] = useState<null | string>(null)
@@ -20,7 +20,8 @@ function StudentForm(): JSX.Element {
   const matchId = pathname.match(/\d+/g)
   const student = students.filter((student) => student.id === Number(matchId))[0]
 
-  const [state, setState] = useState<StudentState>({
+  const [state, setState] = useState<StudentType>({
+    id: 0,
     name: student ? student.name : '',
     birthday: student ? student.birthday : '',
     address: student ? student.address : '',

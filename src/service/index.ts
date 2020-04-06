@@ -1,16 +1,6 @@
 import axios from 'axios'
 import { ActionType, Action, StateInterface, StudentType, CourseType } from '../reducer'
-export type StudentState = {
-  id?: number
-  name: string
-  birthday: string
-  address: string
-  zipcode: string
-  city: string
-  phone: string
-  email: string
-  courses: number[]
-}
+
 const baseUrl = 'http://localhost:3001'
 const customAxios = axios.create({
   url: baseUrl,
@@ -112,8 +102,7 @@ export function useDataService(data: StateInterface, dispatch: React.Dispatch<Ac
       })
   }
   const addCourse = (course: CourseType): void => {
-    console.log(course)
-    /* customAxios
+    customAxios
       .post('/courses', course)
       .then((res) => {
         dispatch({
@@ -123,7 +112,7 @@ export function useDataService(data: StateInterface, dispatch: React.Dispatch<Ac
       })
       .catch((err) => {
         console.log(err)
-      }) */
+      })
   }
   const updateCourse = (course: CourseType): void => {
     customAxios
