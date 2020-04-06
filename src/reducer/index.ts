@@ -1,7 +1,27 @@
-export interface StateInterface {
-  students: StudentType[]
-  courses: CourseType[]
+export const initialState = {
+  students: [
+    {
+      id: 0,
+      name: '',
+      birthday: '',
+      address: '',
+      zipcode: '',
+      city: '',
+      phone: '',
+      email: '',
+      courses: [0],
+    },
+  ],
+  courses: [
+    {
+      id: 0,
+      name: '',
+      startdate: '',
+      enddate: '',
+    },
+  ],
 }
+
 export type CourseType = {
   id: number
   name: string
@@ -40,31 +60,10 @@ export type Action =
   | { type: ActionType.ADD_COURSE; payload: CourseType }
   | { type: ActionType.REMOVE_COURSE; payload: number }
   | { type: ActionType.EDIT_COURSE; payload: CourseType }
-export const initialState: StateInterface = {
-  students: [
-    {
-      id: 0,
-      name: '',
-      birthday: '',
-      address: '',
-      zipcode: '',
-      city: '',
-      phone: '',
-      email: '',
-      courses: [],
-    },
-  ],
-  courses: [
-    {
-      id: 0,
-      name: '',
-      startdate: '',
-      enddate: '',
-    },
-  ],
-}
 
-function reducer(state: StateInterface, action: Action): StateInterface {
+export type StateInterface = Readonly<typeof initialState>
+
+function reducer(state: StateInterface = initialState, action: Action): StateInterface {
   switch (action.type) {
     case ActionType.FETCH_STUDENTS:
       return { ...state, students: action.payload }
