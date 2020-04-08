@@ -77,6 +77,7 @@ function StudentForm(): JSX.Element {
       console.log(error)
     }
   }
+  console.log(phone)
   const handleFocus = (e: ChangeEvent<HTMLInputElement>): string => (e.target.type = 'date')
   const handleBlur = (e: ChangeEvent<HTMLInputElement>): string => (e.target.type = 'text')
   return (
