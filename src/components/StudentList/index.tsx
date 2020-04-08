@@ -16,13 +16,17 @@ function StudentList(): JSX.Element {
   const sortByName = students.sort((a: StudentType, b: StudentType) => a.name.localeCompare(b.name))
 
   const studentList = sortByName.filter((f) => f.name.toLowerCase().startsWith(state.toLowerCase()))
-
+  const properties = ['index', 'name', 'address', 'email', 'phone', 'birthday']
   return (
     <Styled.Container>
       <Styled.Title>students</Styled.Title>
       <Styled.Main>
         <SearchBar value={state} handleChange={handleChange} />
-        {studentList.length < 1 ? <Styled.Title>nothing found</Styled.Title> : <Table students={studentList} />}
+        {studentList.length < 1 ? (
+          <Styled.Title>nothing found</Styled.Title>
+        ) : (
+          <Table items={studentList} properties={properties} />
+        )}
       </Styled.Main>
     </Styled.Container>
   )

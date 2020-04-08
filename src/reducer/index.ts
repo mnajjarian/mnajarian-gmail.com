@@ -63,6 +63,10 @@ export type Action =
 
 export type StateInterface = Readonly<typeof initialState>
 
+/** check for exhaustiveness on reducer */
+function assertNever(x: never): never {
+  throw new Error('Unexpected object: ' + x)
+}
 function reducer(state: StateInterface = initialState, action: Action): StateInterface {
   switch (action.type) {
     case ActionType.FETCH_STUDENTS:
@@ -93,7 +97,7 @@ function reducer(state: StateInterface = initialState, action: Action): StateInt
     case ActionType.REMOVE_COURSE:
       return { ...state, courses: state.courses.filter((course) => course.id !== action.payload) }
     default:
-      return state
+      return assertNever(action)
   }
 }
 

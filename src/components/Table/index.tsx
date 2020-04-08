@@ -1,41 +1,63 @@
 import React from 'react'
 import { StudentType } from '../../reducer'
 import { Styled } from './style'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 type Props = {
-  students: StudentType[]
+  properties: string[]
+  items: StudentType[]
 }
+function getProperty<T, K extends keyof T>(o: T, propertyName: K): T[K] {
+  return o[propertyName]
+}
+
+const Th = ({ head }: { head: string }): JSX.Element => <th>{head}</th>
+const Thead = ({ properties }: { properties: string[] }): JSX.Element => {
+  return (
+    <thead>
+      <tr>
+        {properties.map((head) => (
+          <Th key={head} head={head} />
+        ))}
+      </tr>
+    </thead>
+  )
+}
+
+function Tbody({ item, properties, index }: { item: any; properties: string[]; index: number }): JSX.Element {
+  const {
+    location: { pathname },
+  } = useHistory()
+
+  return (
+    <tbody>
+      <tr>
+        {properties.map((prop: string) => (
+          <td key={prop}>
+            {prop === 'index' ? (
+              index
+            ) : prop === 'name' ? (
+              <Link to={`${pathname}/${item.id}/${item.name.replace(' ', '-')}`}>{getProperty(item, prop)}</Link>
+            ) : (
+              getProperty(item, prop)
+            )}
+          </td>
+        ))}
+      </tr>
+    </tbody>
+  )
+}
+
 function Table(props: Props): JSX.Element {
-  const { students } = props
+  const { properties, items } = props
 
   return (
     <Styled.Container>
       <Styled.Table>
-        <thead>
-          <tr>
-            <th>index</th>
-            <th>name</th>
-            <th>address</th>
-            <th>email</th>
-            <th>phone</th>
-            <th>birthday</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map((student, index) => (
-            <tr key={student.id}>
-              <td>{index + 1}</td>
-              <td>
-                <Link to={`/students/${student.id}/${student.name.split(' ').join('-')}`}>{student.name}</Link>
-              </td>
-              <td>{student.address}</td>
-              <td>{student.email}</td>
-              <td>{student.phone}</td>
-              <td>{student.birthday}</td>
-            </tr>
-          ))}
-        </tbody>
+        <Thead properties={properties} />
+        {items.map((item: typeof items[0], index: number) => (
+          <Tbody key={item.id} item={item} properties={properties} index={index + 1} />
+        ))}
       </Styled.Table>
     </Styled.Container>
   )
